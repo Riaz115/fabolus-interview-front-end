@@ -14,7 +14,7 @@ export const MyAllDataProvider = ({ children }) => {
   const [addText, setAddText] = useState(null);
 
   //this is my backend url
-  const myUrl = "https://fabolu-interview-backend-cm27.vercel.app/api";
+  const myUrl = "http://localhost:3000";
 
   //this is function for getting all profile users
   const forGettingAllUsers = async () => {
