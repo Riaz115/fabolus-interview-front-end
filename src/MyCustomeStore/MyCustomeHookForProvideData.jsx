@@ -14,7 +14,7 @@ export const MyAllDataProvider = ({ children }) => {
   const [addText, setAddText] = useState(null);
 
   //this is my backend url
-  const myUrl = "http://localhost:3000";
+  const myUrl = "http://localhost:8000/api";
 
   //this is function for getting all profile users
   const forGettingAllUsers = async () => {
