@@ -15,7 +15,7 @@ export const MyAllDataProvider = ({ children }) => {
   const [addText, setAddText] = useState(null);
 
   //this is my backend url
-  const myUrl = "http://localhost:8000/api";
+  const myUrl = "https://fabolus-intervirew-test-bacend.vercel.app/api";
 
   //this is function for getting all profile users
   const forGettingAllUsers = async () => {
