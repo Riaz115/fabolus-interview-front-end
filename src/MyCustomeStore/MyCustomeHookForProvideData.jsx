@@ -8,27 +8,32 @@ export const MyCustomeAllDataProvider = createContext();
 //this is for provide data
 export const MyAllDataProvider = ({ children }) => {
   const [allUsers, setAllUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [profileUserData, setProfileUserData] = useState(
     localStorage.getItem("userdata")
   );
   const [addText, setAddText] = useState(null);
 
   //this is my backend url
-  const myUrl = "https://fabolu-interview-backend-cm27.vercel.app/api";
+  const myUrl = "http://localhost:8000/api";
 
   //this is function for getting all profile users
   const forGettingAllUsers = async () => {
+    setLoading(true);
     const url = `${myUrl}/forms`;
     try {
       const response = await axios(url);
       const data = response.data;
       if (response.status === 200 || response.status === 201) {
         setAllUsers(data);
+        setLoading(false);
       }
     } catch (err) {
       if (err.response) {
         toast.error(err.response.data.msg);
+        setLoading(false);
       } else {
+        setLoading(false);
         console.log(
           "there is error in the getting all profile user funciton",
           err
@@ -85,6 +90,7 @@ export const MyAllDataProvider = ({ children }) => {
         setProfileUserData,
         addText,
         setAddText,
+        loading,
       }}
     >
       {children}

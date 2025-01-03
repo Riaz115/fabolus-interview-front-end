@@ -11,6 +11,7 @@ import {
   Paper,
   Box,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { UseMyCutomeHookForAllData } from "../MyCustomeStore/MyCustomeHookForProvideData";
@@ -28,6 +29,7 @@ const UserProfileTable = () => {
     forGettingDataForEditTheProfileUser,
     profileUserData,
     setAddText,
+    loading,
   } = UseMyCutomeHookForAllData();
 
   //this is for getting all users
@@ -137,7 +139,7 @@ const UserProfileTable = () => {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            {/* <TableBody>
               {allUsers.map((user, index) => (
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
@@ -196,6 +198,77 @@ const UserProfileTable = () => {
                   </TableCell>
                 </TableRow>
               ))}
+            </TableBody> */}
+
+            <TableBody>
+              {loading ? (
+                <TableRow>
+                  <TableCell colSpan={7} align="center">
+                    <CircularProgress size={30} />
+                    <Typography variant="body1" style={{ marginTop: 10 }}>
+                      Loading...
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              ) : (
+                allUsers.map((user, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{user?.name}</TableCell>
+                    <TableCell>{user?.email}</TableCell>
+                    <TableCell>{user?.password}</TableCell>
+                    <TableCell>{user?.gender}</TableCell>
+                    <TableCell>
+                      {user?.dateOfBirth
+                        ? format(new Date(user?.dateOfBirth), "yyyy-MM-dd")
+                        : "Empty"}
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={() => forClickOnEditbutton(user._id)}
+                        sx={{
+                          backgroundColor: "#8D77AB",
+                          color: "#E1EACD",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          padding: "4px 10px",
+                          borderRadius: "8px",
+                          "&:hover": {
+                            backgroundColor: "#2A004E",
+                            color: "#fff",
+                          },
+                        }}
+                        variant="contained"
+                      >
+                        <Edit sx={{ fontSize: 16 }} />
+                      </Button>
+                    </TableCell>
+
+                    <TableCell>
+                      <Button
+                        onClick={() => forClickOnDeleteButton(user._id)}
+                        sx={{
+                          backgroundColor: "#FFCDD2",
+                          color: "#D32F2F",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          padding: "4px 10px",
+                          borderRadius: "8px",
+                          "&:hover": {
+                            backgroundColor: "#F44336",
+                            color: "#fff",
+                          },
+                        }}
+                        variant="contained"
+                      >
+                        <Delete sx={{ fontSize: 16 }} />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </TableContainer>
